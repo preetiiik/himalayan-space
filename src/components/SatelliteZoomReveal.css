@@ -1,0 +1,144 @@
+.satZoom {
+  width: 100%;
+}
+
+.satZoom__frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #141922, #0b0e14);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  isolation: isolate;
+}
+
+.satZoom__frame--missing {
+  background: linear-gradient(135deg, #1a212c, #10141b);
+}
+
+.satZoom__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: var(--focus-x) var(--focus-y);
+  transform: scale(var(--zoom-from));
+  will-change: transform;
+}
+
+.satZoom__frame.is-playing .satZoom__img {
+  animation: satZoomIn var(--sat-duration) cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+@keyframes satZoomIn {
+  to {
+    transform: scale(var(--zoom-to));
+  }
+}
+
+.satZoom__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: var(--focus-x) var(--focus-y);
+  transform: scale(var(--zoom-from));
+  will-change: transform;
+  pointer-events: none;
+}
+
+.satZoom__frame.is-playing .satZoom__overlay {
+  animation: satZoomIn var(--sat-duration) cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.satZoom__path {
+  fill: transparent;
+  stroke: var(--boundary-color);
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--boundary-color) 70%, transparent));
+}
+
+.satZoom__frame.is-playing .satZoom__path {
+  animation:
+    satDraw calc(var(--sat-duration) * 0.45) var(--ease-out, ease-out) calc(var(--sat-duration) * 0.4) forwards,
+    satFillIn calc(var(--sat-duration) * 0.25) var(--ease-soft, ease-in) calc(var(--sat-duration) * 0.8) forwards;
+}
+
+@keyframes satDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes satFillIn {
+  to {
+    fill: var(--boundary-fill);
+  }
+}
+
+.satZoom__label {
+  position: absolute;
+  left: var(--focus-x);
+  top: var(--focus-y);
+  transform: translate(-50%, -130%);
+  background: rgba(10, 14, 18, 0.85);
+  color: var(--ink);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  white-space: nowrap;
+  border: 1px solid color-mix(in srgb, var(--boundary-color) 50%, transparent);
+}
+
+.satZoom__frame.is-playing .satZoom__label {
+  animation: satFadeIn 0.8s var(--ease-out, ease-out) calc(var(--sat-duration) * 0.85) forwards;
+}
+
+@keyframes satFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.satZoom__replay {
+  margin-top: 16px;
+  display: block;
+  margin-inline: auto;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  transition: background 0.3s var(--ease-soft, ease);
+}
+
+.satZoom__replay:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .satZoom__frame.is-playing .satZoom__img,
+  .satZoom__frame.is-playing .satZoom__overlay {
+    animation: none;
+    transform: scale(var(--zoom-to));
+  }
+
+  .satZoom__frame.is-playing .satZoom__path {
+    animation: none;
+    stroke-dashoffset: 0;
+    fill: var(--boundary-fill);
+  }
+
+  .satZoom__frame.is-playing .satZoom__label {
+    animation: none;
+    opacity: 1;
+  }
+}

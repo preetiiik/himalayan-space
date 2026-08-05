@@ -1,0 +1,178 @@
+/* Program detail page — reuses the site's existing tokens/typography
+   (no new visual language), just new layout for a single program. */
+
+.progDetail {
+  padding-top: clamp(140px, 18vw, 180px);
+}
+
+.progDetail__back {
+  display: inline-flex;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: clamp(28px, 4vw, 44px);
+  transition: color 0.3s;
+}
+
+.progDetail__back:hover {
+  color: var(--accent);
+}
+
+.progDetail__tag {
+  margin-bottom: 14px;
+}
+
+.progDetail__title {
+  max-width: 18ch;
+  margin-bottom: 16px;
+}
+
+.progDetail__date {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: clamp(28px, 4vw, 40px);
+}
+
+.progDetail__body {
+  margin-bottom: 20px;
+}
+
+.progDetail__placeholder {
+  color: var(--ink-faint);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.85;
+  max-width: 62ch;
+  padding: 16px 20px;
+  border: 1px dashed var(--line);
+  border-radius: 4px;
+}
+
+.progDetail__galleryWrap {
+  margin-top: clamp(64px, 9vw, 110px);
+}
+
+/* Editorial/bento-style masonry: a 4-column grid where most tiles are
+   1x1, but a repeating pattern (every 6th, so an 11-image gallery gets
+   2 anchors, a 7-image one gets 1-2) promotes a tile to a large 2x2
+   anchor, plus one tall and one wide tile per cycle for asymmetry.
+   grid-auto-flow: dense lets later small tiles backfill any gaps left
+   by the spanning ones instead of leaving holes. */
+.progDetail__gallery {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(120px, 15vw, 190px);
+  grid-auto-flow: dense;
+  gap: clamp(16px, 2.2vw, 28px);
+  margin-top: clamp(30px, 4vw, 50px);
+}
+
+.progDetail__galleryItem {
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-panel);
+  transition: transform 0.55s var(--ease-out), border-color 0.5s, box-shadow 0.55s;
+}
+
+.progDetail__galleryItem:nth-child(6n + 1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.progDetail__galleryItem:nth-child(6n + 3) {
+  grid-row: span 2;
+}
+
+.progDetail__galleryItem:nth-child(6n + 4) {
+  grid-column: span 2;
+}
+
+.progDetail__galleryItem:hover {
+  transform: translateY(-6px);
+  border-color: rgba(169, 216, 244, 0.3);
+  box-shadow: 0 26px 60px -30px rgba(120, 180, 230, 0.5);
+}
+
+.progDetail__galleryItem:hover .figure img {
+  transform: scale(1.06);
+}
+
+.progDetail__galleryMedia {
+  border-radius: 0;
+  /* Fill the tile's actual grid-track size (which varies per span)
+     rather than deriving its own box from the ratio prop — a fixed
+     aspect-ratio would fight the masonry grid's own row/column spans. */
+  aspect-ratio: auto;
+  height: 100%;
+}
+
+/* Cropped to fill each irregular tile — a masonry/bento layout with
+   mixed tile shapes needs every tile filled edge-to-edge to read as
+   organic rather than full of letterboxed gaps; the earlier
+   "show the complete image" request and this "editorial masonry" one
+   are in some tension here, so flagging the choice rather than
+   guessing silently. */
+.progDetail__galleryMedia img {
+  object-fit: cover;
+}
+
+@media (max-width: 860px) {
+  .progDetail__gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .progDetail__galleryItem:nth-child(6n + 1) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 560px) {
+  .progDetail__gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .progDetail__galleryItem,
+  .progDetail__galleryItem:nth-child(6n + 1),
+  .progDetail__galleryItem:nth-child(6n + 3),
+  .progDetail__galleryItem:nth-child(6n + 4) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+/* Optional extra content block(s) below the main gallery — a wide
+   banner image with an overlaid caption, e.g. Space Labs' "Reaching the
+   Moon" banner. Generic: any program/feature with an extraBlocks entry
+   gets this, not just Space Labs. */
+.progDetail__block {
+  margin-top: clamp(40px, 6vw, 70px);
+}
+
+.progDetail__banner {
+  position: relative;
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progDetail__bannerMedia {
+  border-radius: 0;
+}
+
+.progDetail__bannerCaption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 28px clamp(20px, 4vw, 44px);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.75), transparent);
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.6vw, 32px);
+  color: #fff;
+}

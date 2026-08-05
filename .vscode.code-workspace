@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../../www.rleonardi.com/interactive-resume/.vscode"
+		},
+		{
+			"path": "../../www.rleonardi.com/interactive-resume/css"
+		},
+		{
+			"path": "../../www.rleonardi.com/interactive-resume/font"
+		},
+		{
+			"path": "../../www.rleonardi.com/interactive-resume/print"
+		},
+		{
+			"path": "../../www.rleonardi.com/interactive-resume/script"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": ".vscode"
+	}
+}

@@ -1,0 +1,183 @@
+/* ============================================================
+   ESTABLISH CONTACT — deliberate style break from the rest of the
+   site: a cyan "mission control" terminal aesthetic, scoped entirely
+   to .contactPage so it never leaks into the site's normal tokens.
+   ============================================================ */
+
+.contactPage {
+  --term-cyan: #2dd9f0;
+  --term-cyan-soft: rgba(45, 217, 240, 0.4);
+  --term-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  min-height: 100vh;
+  padding-top: clamp(130px, 18vw, 170px);
+  padding-bottom: clamp(80px, 10vw, 130px);
+}
+
+.contactPage__inner {
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contactPage__badge {
+  display: inline-flex;
+  padding: 8px 18px;
+  border: 1px solid var(--term-cyan-soft);
+  border-radius: 999px;
+  font-family: var(--term-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--term-cyan);
+  margin-bottom: 26px;
+}
+
+.contactPage__title {
+  font-family: var(--serif);
+  font-size: clamp(38px, 6vw, 58px);
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+
+.contactPage__sub {
+  color: var(--ink-muted);
+  font-size: 14.5px;
+  line-height: 1.8;
+  max-width: 42ch;
+  margin-bottom: clamp(48px, 7vw, 68px);
+}
+
+/* ---------- Form ---------- */
+
+.contactForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  text-align: left;
+}
+
+.contactForm__field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactForm__label {
+  font-family: var(--term-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--term-cyan);
+}
+
+.contactForm__select,
+.contactForm__textarea {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  background: var(--bg-panel);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contactForm__input {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background: #f4f6f9;
+  color: #0a0d12;
+  font-family: var(--sans);
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contactForm__input::placeholder {
+  color: #6b7280;
+}
+
+.contactForm__select:focus,
+.contactForm__input:focus,
+.contactForm__textarea:focus {
+  outline: none;
+  border-color: var(--term-cyan);
+  box-shadow: 0 0 0 3px var(--term-cyan-soft);
+}
+
+.contactForm__select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-muted) 50%),
+    linear-gradient(135deg, var(--ink-muted) 50%, transparent 50%);
+  background-position: calc(100% - 22px) center, calc(100% - 17px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.contactForm__textarea {
+  resize: vertical;
+  min-height: 130px;
+  font-family: var(--sans);
+  line-height: 1.7;
+}
+
+.contactForm__error {
+  font-size: 11.5px;
+  color: #ff8080;
+}
+
+.contactForm__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px;
+  margin-top: 6px;
+  border-radius: 3px;
+  border: none;
+  background: var(--term-cyan);
+  color: #04262b;
+  font-family: var(--term-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 0 40px -8px var(--term-cyan-soft);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-soft);
+}
+
+.contactForm__submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 56px -6px var(--term-cyan-soft);
+}
+
+.contactForm__submit i {
+  font-style: normal;
+  font-size: 11px;
+}
+
+.contactForm__footnote {
+  text-align: center;
+  font-family: var(--term-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 4px;
+}
+
+@media (max-width: 560px) {
+  .contactPage__inner {
+    max-width: 100%;
+  }
+}

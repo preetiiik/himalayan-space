@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/LENOVO/AppData/Local/Temp/**)",
+      "Bash(find \"C:/Users/LENOVO/AppData\" -maxdepth 6 \\\\\\( -iname \"*.png\" -o -iname \"*.jpg\" -o -iname \"*.jpeg\" -o -iname \"*.webp\" \\\\\\) -newermt \"-20 minutes\" 2>/dev/null | head -50)",
+      "Read(//c/Users/LENOVO/AppData/**)",
+      "Bash(ls -la \"D:/DOWNLOADS/Himalayan Space/Frame 3.png\")",
+      "Read(//d/DOWNLOADS/Himalayan Space/**)",
+      "Bash(cp \"D:/DOWNLOADS/Himalayan Space/Frame 3.png\" \"d:/Claude Code/himalayan-space/public/images/astronaut.png\" && ls -la \"d:/Claude Code/himalayan-space/public/images/\")",
+      "Bash(ls -la \"D:/DOWNLOADS/saturn.jpg\")",
+      "Read(//d/DOWNLOADS/**)",
+      "Bash(cp \"D:/DOWNLOADS/saturn.jpg\" \"d:/Claude Code/himalayan-space/public/images/saturn.jpg\" && ls -la \"d:/Claude Code/himalayan-space/public/images/\")",
+      "Bash(find \"D:/DOWNLOADS\" -iname \"satellite-zoom-reveal.html\" 2>/dev/null; find \"d:/Claude Code\" -iname \"satellite-zoom-reveal.html\" 2>/dev/null; find \"D:/DOWNLOADS/Himalayan Space\" -iname \"*.html\" 2>/dev/null)",
+      "Read(//d/Claude Code/**)",
+      "Bash(npx vite *)",
+      "Bash(python3 -c ' *)"
+    ],
+    "additionalDirectories": [
+      "D:\\DOWNLOADS\\Himalayan Space",
+      "D:\\DOWNLOADS"
+    ]
+  }
+}

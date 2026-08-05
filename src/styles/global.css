@@ -1,0 +1,355 @@
+/* ============================================================
+   HIMALAYAN SPACE CENTRE — GLOBAL TOKENS + BASE
+   ============================================================ */
+
+:root {
+  /* Surfaces */
+  --bg: #000000;
+  --bg-deep: #04050a;
+  --bg-panel: #0c0e13;
+  --bg-panel-2: #14181f;
+  --bg-elevate: #1b2028;
+
+  /* Ink */
+  --ink: #f2f4f7;
+  --ink-soft: #c7ccd4;
+  --ink-muted: #8b939f;
+  --ink-faint: #5b626d;
+
+  /* Accent — the pale ice-blue used on stats + primary CTA */
+  --accent: #a9d8f4;
+  --accent-deep: #6fb8e0;
+  --accent-glow: rgba(169, 216, 244, 0.35);
+
+  /* Lines */
+  --line: rgba(255, 255, 255, 0.1);
+  --line-soft: rgba(255, 255, 255, 0.055);
+
+  /* Type */
+  --serif: 'Playfair Display', 'Didot', 'Bodoni MT', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Rhythm */
+  --shell: 1280px;
+  --gutter: clamp(20px, 5vw, 72px);
+  --section-y: clamp(72px, 10vw, 150px);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur: 0.75s;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* `clip` rather than `hidden`: it contains the oversized planet art without
+     turning the root into a scroll container, which otherwise makes descendant
+     100% widths resolve against the viewport *including* the scrollbar. */
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  /* html's overflow-x:clip only clips html's own box — it doesn't stop body
+     itself (which has no overflow constraint of its own) from reporting a
+     wider scrollable/draggable area on mobile when a transform-positioned
+     descendant sits outside the viewport, even one already visually clipped
+     by a nearer ancestor's overflow:hidden (About/MoonBanner). Matching
+     `clip` here (not `hidden`) for the same reason as html: it contains the
+     overflow without turning body into a scroll container. */
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+::selection {
+  background: var(--accent);
+  color: #04060a;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #050608;
+}
+::-webkit-scrollbar-thumb {
+  background: #23282f;
+  border-radius: 9px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-deep);
+}
+
+/* ============================================================
+   LAYOUT PRIMITIVES
+   ============================================================ */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+/* Small tracked-out eyebrow label above headings */
+.eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 18px;
+}
+
+.eyebrow--muted {
+  color: var(--ink-muted);
+}
+
+/* Eyebrow with a leading rule, as used beside Vision / Mission */
+.eyebrow--ruled {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-soft);
+}
+.eyebrow--ruled::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--ink-faint);
+}
+
+.display {
+  font-size: clamp(34px, 5.4vw, 68px);
+  line-height: 1.06;
+}
+
+.display--sm {
+  font-size: clamp(28px, 4vw, 46px);
+}
+
+.lede {
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  line-height: 1.85;
+  max-width: 56ch;
+}
+
+.divider {
+  height: 1px;
+  background: var(--line-soft);
+  border: 0;
+  margin: 0;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+  --btn-bg: transparent;
+  --btn-ink: var(--ink);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.4s var(--ease-out), border-color 0.4s var(--ease-soft),
+    color 0.4s var(--ease-soft), box-shadow 0.4s var(--ease-soft);
+}
+
+/* Sheen that wipes across on hover */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 80%
+  );
+  transform: translateX(-110%);
+  transition: transform 0.7s var(--ease-out);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 34px -14px var(--accent-glow);
+}
+
+.btn:hover::before {
+  transform: translateX(110%);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--solid {
+  --btn-bg: var(--accent);
+  --btn-ink: #05080d;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.btn--solid:hover {
+  box-shadow: 0 12px 40px -10px var(--accent-glow);
+}
+
+.btn--ghost {
+  --btn-bg: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+}
+
+.btn--sm {
+  padding: 10px 22px;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+
+/* ============================================================
+   SCROLL-REVEAL — driven by useScrollReveal()
+   Elements start displaced + transparent, then settle on entry.
+   ============================================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out),
+    filter 0.9s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal='up'] {
+  transform: translate3d(0, 42px, 0);
+}
+[data-reveal='down'] {
+  transform: translate3d(0, -34px, 0);
+}
+[data-reveal='left'] {
+  transform: translate3d(-48px, 0, 0);
+}
+[data-reveal='right'] {
+  transform: translate3d(48px, 0, 0);
+}
+[data-reveal='scale'] {
+  transform: scale(0.9);
+}
+[data-reveal='blur'] {
+  filter: blur(14px);
+  transform: translate3d(0, 20px, 0);
+}
+[data-reveal='fade'] {
+  transform: none;
+}
+
+/* Like 'left'/'right' but with a per-element magnitude via --moon-from,
+   since each element travels a different distance back to its own slot.
+   Longhand duration/timing overrides only (not the transition shorthand)
+   so the base rule's transition-delay (var(--reveal-delay)) — which is
+   how the moon stages stagger — keeps applying untouched. --ease-soft
+   reads as a gentler, more uniform drift-to-rest than --ease-out's sharp
+   initial burst, better suited to a slow multi-stage reveal. */
+[data-reveal='moon'] {
+  transform: translate3d(var(--moon-from, 0), 0, 0);
+  transition-duration: 1.05s;
+  transition-timing-function: var(--ease-soft);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+/* ============================================================
+   ACCESSIBILITY — honour reduced-motion across the whole site
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
