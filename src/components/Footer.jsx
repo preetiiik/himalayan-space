@@ -70,16 +70,26 @@ export default function Footer() {
         <div className="footer__col" data-reveal="up" style={{ '--reveal-delay': '110ms' }}>
           <h3 className="footer__heading">{FOOTER.linksHeading}</h3>
           <ul className="footer__list">
-            {FOOTER.links.map((l) => (
-              <li key={l}>
-                <a
-                  href={l === 'Contact Us' ? '#contact' : `#${l.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="footer__link"
-                >
-                  {l}
-                </a>
-              </li>
-            ))}
+            {FOOTER.links.map((l) => {
+              const sectionIds = {
+                Explore: 'explore',
+                'Our Team': 'team',
+                Programs: 'programs',
+                Gallery: 'gallery',
+                'Contact Us': 'contact',
+              }
+
+              return (
+                <li key={l}>
+                  <a
+                    href={`#${sectionIds[l] || l.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="footer__link"
+                  >
+                    {l}
+                  </a>
+                </li>
+              )
+            })}
           </ul>
         </div>
 

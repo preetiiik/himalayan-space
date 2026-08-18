@@ -6,7 +6,7 @@ import { TEAM } from '../data/content'
  */
 export default function Team() {
   return (
-    <section className="section team" id="our-team">
+    <section className="section team" id="team">
       <div className="shell">
         <h2 className="display--sm team__title" data-reveal="up">
           {TEAM.title}
