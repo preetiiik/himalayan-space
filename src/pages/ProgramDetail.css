@@ -176,3 +176,16 @@
   font-size: clamp(20px, 2.6vw, 32px);
   color: #fff;
 }
+@media (max-width: 560px) {
+  .progDetail {
+    padding-top: 190px;
+  }
+
+  .progDetail__back {
+    position: relative;
+    z-index: 10;
+    display: inline-flex;
+    margin-bottom: 19px;
+    margin-top: 57px;
+  }
+}
