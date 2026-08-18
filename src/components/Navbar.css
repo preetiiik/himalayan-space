@@ -50,13 +50,13 @@
 /* The supplied badge is light-on-white, so it needs lifting off the dark bar. */
 .logo--img {
   width: auto;
-  height: 60px;
+  height: 80px;
   object-fit: contain;
   filter: drop-shadow(0 2px 10px rgba(120, 180, 240, 0.35));
 }
 
 .footer__brand .logo--img {
-  height: 56px;
+  height: 75px;
 }
 
 /* --- Links --- */
@@ -70,7 +70,7 @@
 
 .nav__link {
   position: relative;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -78,13 +78,28 @@
   padding-block: 6px;
   transition: color 0.35s var(--ease-soft);
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav__link-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-muted);
+  transition: color 0.35s var(--ease-soft), transform 0.35s var(--ease-out);
+}
+
+.nav__link-text {
+  display: inline;
 }
 
 .nav__link::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -6px;
   height: 1px;
   width: 100%;
   background: var(--accent);
@@ -96,6 +111,12 @@
 .nav__link:hover,
 .nav__link.is-active {
   color: var(--ink);
+}
+
+.nav__link:hover .nav__link-icon,
+.nav__link.is-active .nav__link-icon {
+  color: var(--accent);
+  transform: scale(1.15) rotate(-10deg);
 }
 
 .nav__link:hover::after,

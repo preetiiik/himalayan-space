@@ -5,7 +5,7 @@ import { useState } from 'react'
  * drawn hexagon if that file has not been added yet, so the header never
  * shows a broken-image icon.
  */
-export default function Logo({ size = 46 }) {
+export default function Logo({ size = 60 }) {
   const [failed, setFailed] = useState(false)
 
   if (!failed) {

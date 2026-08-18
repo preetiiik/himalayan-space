@@ -233,7 +233,7 @@
 }
 
 .hero__scrollLabel {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.34em;
   text-transform: uppercase;
   color: var(--ink-faint);

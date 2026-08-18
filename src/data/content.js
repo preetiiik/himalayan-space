@@ -189,6 +189,8 @@ export const PROGRAMS = {
         'program-space-day-gallery-6',
         'program-space-day-gallery-7',
         'program-space-day-gallery-8',
+        'program-space-day-gallery-9',
+        'program-space-day-gallery-10',
       ],
     },
     {
@@ -275,6 +277,8 @@ export const LABS = {
         'lab-telescope-gallery-3',
         'lab-telescope-gallery-4',
         'lab-telescope-gallery-5',
+        'lab-telescope-gallery-6',
+        'lab-telescope-gallery-7',
       ],
     },
     {
@@ -294,6 +298,8 @@ export const LABS = {
         'lab-rocketry-gallery-2',
         'lab-rocketry-gallery-3',
         'lab-rocketry-gallery-4',
+        'lab-rocketry-gallery-5',
+        'lab-rocketry-gallery-6',
       ],
     },
   ],
@@ -324,8 +330,8 @@ export const TEAM = {
         { name: 'Pramoda P Agnihotri', role: 'Space Tutor' },
         { name: 'Suma Nalawadi', role: 'Space Tutor' },
         { name: 'Meghana S Talawai', role: 'Space Tutor' },
-        { name: 'Sheba Devanur', role: 'Project Manager And Space Tutor' },
-        { name: 'Shalini Kshatriya', role: 'Business Development Executive' },
+        { name: 'Chetana Chavanagoudar', role: 'Project Manager And Space Tutor' },
+        { name: 'Meghana V Athani', role: 'Business Development Executive' },
       ],
     },
   ],
@@ -352,8 +358,11 @@ export const CONTACT_SECTION = {
   // Reuses FOOTER.phones/FOOTER.emails for the actual numbers/addresses
   // (single source of truth) — these labels are this section's own.
   phoneLabels: ['Primary Hub', 'Regional Link', 'Field Ops A', 'Field Ops B'],
-  legal:
-    'We are registered in Companies House, UK as Himalayan Space Center Ltd. Registered office address 42-44 Bishopsgate, London, England, EC2N 4AH. Company Code: 16099464.',
+  legal: 'We are registered in Companies House, UK as Himalayan Space Center Ltd.',
+  registeredOffice: {
+    heading: 'Registered Office',
+    lines: ['42-44 Bishopsgate', 'London, England, EC2N 4AH', 'Company Code: 16099464'],
+  },
 }
 
 export const FOOTER = {
@@ -364,5 +373,7 @@ export const FOOTER = {
   contactHeading: 'Contact Us',
   phones: ['+1-347-507-7773', '+880-1819-016-721', '+91-9731757556', '+91-9606351695'],
   emails: ['space@himalayanspacecentre.org', 'ceo@himalayanspacecentre.org'],
-  legal: 'All rights reserved @2026. Designed by Spitel.',
+  legal: 'All rights reserved ©2026.',
+  poweredBy: 'Powered By Spitel Pvt. Ltd.',
+  poweredByUrl: 'https://spitel.com',
 }

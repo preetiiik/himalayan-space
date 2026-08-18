@@ -115,7 +115,7 @@
   border-radius: 999px;
   border: 1px solid var(--line);
   color: var(--ink-soft);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.03em;
   transition: background 0.3s var(--ease-soft, ease);
 }

@@ -7,6 +7,35 @@ import './Navbar.css'
 
 const SECTION_IDS = NAV_LINKS.map((l) => l.id)
 
+// Icon components
+const ICONS = {
+  explore: (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="12" r="5" />
+      <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24" />
+    </svg>
+  ),
+  team: (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  ),
+  programs: (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </svg>
+  ),
+  gallery: (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <path d="M21 15l-5-5L5 21" />
+    </svg>
+  ),
+}
+
 export default function Navbar() {
   const y = useScrollY()
   const active = useActiveSection(SECTION_IDS)
@@ -57,7 +86,8 @@ export default function Navbar() {
               onClick={(e) => go(e, link.id)}
               className={`nav__link ${active === link.id ? 'is-active' : ''}`}
             >
-              {link.label}
+              <span className="nav__link-icon">{ICONS[link.id]}</span>
+              <span className="nav__link-text">{link.label}</span>
             </a>
           ))}
         </nav>

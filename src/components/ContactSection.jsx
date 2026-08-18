@@ -36,7 +36,7 @@ export default function ContactSection() {
   )
 
   return (
-    <section className="section contactSection">
+    <section className="section contactSection" id="contact">
       <div className="shell contactSection__grid">
         <div className="contactSection__form">
           <h2 className="contactSection__title" data-reveal="up">
@@ -115,9 +115,15 @@ export default function ContactSection() {
             </button>
           </form>
 
-          <p className="contactSection__legal" data-reveal="up" style={{ '--reveal-delay': '200ms' }}>
-            {CONTACT_SECTION.legal}
-          </p>
+          <div className="contactSection__legal" data-reveal="up" style={{ '--reveal-delay': '200ms' }}>
+            <p className="contactSection__legalIntro">{CONTACT_SECTION.legal}</p>
+            <p className="contactSection__legalHeading">{CONTACT_SECTION.registeredOffice.heading}</p>
+            <address className="contactSection__legalAddress">
+              {CONTACT_SECTION.registeredOffice.lines.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </address>
+          </div>
         </div>
 
         <div className="contactSection__info" data-reveal="right">

@@ -147,7 +147,7 @@ p {
 
 /* Small tracked-out eyebrow label above headings */
 .eyebrow {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.34em;
   text-transform: uppercase;
@@ -271,7 +271,7 @@ p {
 
 .btn--sm {
   padding: 10px 22px;
-  font-size: 9px;
+  font-size: 14px;
   letter-spacing: 0.2em;
 }
 
