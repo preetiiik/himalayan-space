@@ -90,9 +90,21 @@ export default function Navbar() {
               <span className="nav__link-text">{link.label}</span>
             </a>
           ))}
+
+          <a
+            href="#contact"
+            onClick={(e) => go(e, 'contact')}
+            className="btn btn--ghost btn--sm nav__cta nav__cta--mobile"
+          >
+            Contact Us
+          </a>
         </nav>
 
-        <a href="#contact" onClick={(e) => go(e, 'contact')} className="btn btn--ghost btn--sm nav__cta">
+        <a
+          href="#contact"
+          onClick={(e) => go(e, 'contact')}
+          className="btn btn--ghost btn--sm nav__cta nav__cta--desktop"
+        >
           Contact Us
         </a>
 

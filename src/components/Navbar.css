@@ -129,6 +129,10 @@
   flex-shrink: 0;
 }
 
+.nav__cta.nav__cta--mobile {
+  display: none;
+}
+
 /* --- Scroll progress --- */
 
 .nav__progress {
@@ -181,8 +185,21 @@
     padding: 12px;
   }
 
-  .nav__cta {
+  .nav__cta.nav__cta--desktop {
     display: none;
+  }
+
+  .nav__cta.nav__cta--mobile {
+    display: inline-flex;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  }
+
+  .nav.is-open .nav__cta.nav__cta--mobile {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.44s;
   }
 
   .nav__links {

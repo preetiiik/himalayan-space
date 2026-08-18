@@ -310,7 +310,7 @@
    ============================================================ */
 
 .moonBanner {
-  text-align: center;
+  text-align: left;
   overflow: hidden;
 }
 
@@ -325,7 +325,6 @@
   color: var(--ink-muted);
   font-style: italic;
   max-width: 34ch;
-  margin-inline: auto;
 }
 
 .moonBanner__row {
@@ -446,7 +445,7 @@
    ============================================================ */
 
 .specialties {
-  text-align: center;
+  text-align: left;
 }
 
 .specialties__eyebrow {
@@ -718,7 +717,7 @@
    ============================================================ */
 
 .facts {
-  text-align: center;
+  text-align: left;
 }
 
 .facts__row {
@@ -1078,7 +1077,7 @@
    ============================================================ */
 
 .labs {
-  text-align: center;
+  text-align: left;
 }
 
 .labs__title span {
@@ -1153,7 +1152,7 @@
    ============================================================ */
 
 .team {
-  text-align: center;
+  text-align: left;
 }
 
 .team__subtitle {
@@ -1269,7 +1268,7 @@
    ============================================================ */
 
 .gallery {
-  text-align: center;
+  text-align: left;
 }
 
 .gallery__subtitle {
@@ -1278,7 +1277,7 @@
   text-transform: uppercase;
   color: var(--ink-muted);
   max-width: 70ch;
-  margin: 14px auto 0;
+  margin: 14px 0 0;
   line-height: 2;
 }
 
@@ -2168,8 +2167,15 @@
 
 /* ---- Specialty cards: on touch devices there's no hover state to
    trigger the description reveal, so show it by default rather than
-   hiding content behind an interaction touch users can't perform. ---- */
-@media (hover: none) and (pointer: coarse) {
+   hiding content behind an interaction touch users can't perform.
+   Using any-hover/any-pointer (not hover/pointer) because those two
+   only describe the PRIMARY input — a hybrid device with both a
+   touchscreen and a trackpad/stylus can report "hover: hover" even
+   when the person is actually tapping, which would silently defeat
+   this override. any-hover/any-pointer check every available input,
+   so a device is only treated as truly hover-capable if none of its
+   inputs support hovering. ---- */
+/* @media (hover: none) and (pointer: coarse), (any-hover: none), (any-pointer: coarse) {
   .spec__descWrap {
     grid-template-rows: 1fr;
   }
@@ -2186,4 +2192,4 @@
     width: 44px;
     background: var(--accent);
   }
-}
+} */

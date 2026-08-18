@@ -17,7 +17,19 @@ export function useScrollReveal() {
           io.unobserve(entry.target)
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      // Horizontal margin matters here, not just vertical: reveal elements
+      // like [data-reveal='moon'] start translated up to 780px sideways
+      // from their resting slot (see MoonBanner.jsx), and
+      // getBoundingClientRect() — what the observer actually measures —
+      // reflects that transform. On a wide desktop viewport a 780px
+      // horizontal offset can still land inside the viewport bounds, but
+      // on a narrow mobile viewport (~375-430px) it pushes the element's
+      // whole box completely off-screen, so it never intersects and
+      // .is-revealed never gets added — the element is stuck at its
+      // start position forever. Generous left/right rootMargin absorbs
+      // that offset regardless of viewport width; the -8% bottom margin
+      // (trigger slightly before the very bottom edge) is unchanged.
+      { threshold: 0.12, rootMargin: '0px 800px -8% 800px' }
     )
 
     const scan = () => {

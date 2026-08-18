@@ -24,10 +24,18 @@ const STAGES = {
  *
  * Entrance: the centre moon is always visible; the three flanking pairs
  * emerge from behind it in sequence (innermost → outermost), each pair
- * sliding out to its resting slot while fading in, triggered once via the
- * shared useScrollReveal() observer ([data-reveal='moon'], see
- * global.css) — the same one-time IntersectionObserver pattern used
- * everywhere else on the site, just with a per-element travel distance.
+ * sliding out to its resting slot while fading in. The reveal is
+ * triggered once by observing the untransformed .moonBanner__row
+ * container via the shared useScrollReveal() observer
+ * ([data-reveal='row'], see global.css) — NOT by observing each moon
+ * individually. Each moon starts translated up to 780px from its resting
+ * slot (--moon-from); IntersectionObserver measures an element's actual
+ * bounding rect, transform included, so on a narrow mobile viewport that
+ * offset can push a moon's whole box outside the viewport and it would
+ * never be seen as "intersecting" on its own. Watching the row instead
+ * — a plain, non-transformed element — and cascading the reveal down to
+ * the moons via a CSS parent-state selector (.moonBanner__row.is-revealed
+ * .moon--reveal) sidesteps that entirely, independent of viewport width.
  */
 export default function MoonBanner() {
   const [fullMoonFailed, setFullMoonFailed] = useState(false)
@@ -41,8 +49,7 @@ export default function MoonBanner() {
     return (
       <span
         key={`${name}-${side}`}
-        className={`moon moon--${name}`}
-        data-reveal="moon"
+        className={`moon moon--${name} moon--reveal`}
         style={{
           '--reveal-delay': `${stage.delay}ms`,
           '--moon-from': `${side === 'left' ? stage.moonFrom : -stage.moonFrom}px`,
@@ -74,7 +81,7 @@ export default function MoonBanner() {
         </p>
       </div>
 
-      <div className="moonBanner__row" aria-hidden="true">
+      <div className="moonBanner__row" data-reveal="row" aria-hidden="true">
         {photoMoon('half', {
           src: '/images/half-moon.png',
           failed: halfMoonFailed,

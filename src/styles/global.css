@@ -311,23 +311,47 @@ p {
   transform: none;
 }
 
-/* Like 'left'/'right' but with a per-element magnitude via --moon-from,
-   since each element travels a different distance back to its own slot.
-   Longhand duration/timing overrides only (not the transition shorthand)
-   so the base rule's transition-delay (var(--reveal-delay)) — which is
-   how the moon stages stagger — keeps applying untouched. --ease-soft
-   reads as a gentler, more uniform drift-to-rest than --ease-out's sharp
-   initial burst, better suited to a slow multi-stage reveal. */
-[data-reveal='moon'] {
-  transform: translate3d(var(--moon-from, 0), 0, 0);
-  transition-duration: 1.05s;
-  transition-timing-function: var(--ease-soft);
-}
-
 [data-reveal].is-revealed {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
   filter: blur(0);
+}
+
+/* Moon phases: NOT individually observed via [data-reveal] — see the
+   comment in MoonBanner.jsx for why (transformed elements can end up
+   with a bounding rect entirely outside a narrow viewport, so
+   IntersectionObserver never sees them as intersecting). Instead
+   .moonBanner__row itself carries data-reveal='row' and is the only
+   thing actually observed; once useScrollReveal() adds .is-revealed to
+   it, this selector cascades the reveal down to every .moon--reveal
+   child. Each moon still travels its own distance and starts on its own
+   delay via --moon-from / --reveal-delay, same as before — only the
+   trigger mechanism changed. */
+.moon--reveal {
+  opacity: 0;
+  transform: translate3d(var(--moon-from, 0), 0, 0);
+  transition: opacity 1.05s var(--ease-soft), transform 1.05s var(--ease-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.moonBanner__row.is-revealed .moon--reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* .moonBanner__row itself is only ever used as a reveal TRIGGER (see
+   MoonBanner.jsx) — it must never be visually hidden/animated like a
+   normal [data-reveal] element, because the always-visible centre moon
+   lives inside it, and a parent's opacity: 0 hides everything nested
+   inside it regardless of the children's own opacity. This cancels the
+   generic [data-reveal] hidden starting state for this one element
+   while still letting useScrollReveal() find + mark it via the same
+   attribute. */
+.moonBanner__row[data-reveal] {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 /* ============================================================
