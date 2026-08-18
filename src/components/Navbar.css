@@ -178,6 +178,7 @@
 @media (max-width: 860px) {
   .nav__burger {
     display: flex;
+    padding: 12px;
   }
 
   .nav__cta {

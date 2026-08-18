@@ -1883,6 +1883,7 @@
 @media (max-width: 900px) {
   .about__grid,
   .universe__grid,
+  .specialties__grid,
   .lab--wide {
     grid-template-columns: 1fr;
   }
@@ -1891,6 +1892,10 @@
     width: clamp(260px, 72vw, 420px);
     right: -14%;
     opacity: 0.5;
+  }
+
+  .universe__dome--photo {
+    width: clamp(240px, 40vw, 380px);
   }
 
   .about__aside {
@@ -1949,6 +1954,159 @@
   .spec {
     padding-right: 104px;
   }
+
+  .about__badges {
+    gap: 18px;
+  }
+
+  .about__vmPin {
+    height: 200vh;
+  }
+
+  .about__vm {
+    top: 64px;
+    min-height: 620px;
+    gap: 24px;
+  }
+
+  .about__vmCell {
+    max-width: 30ch;
+  }
+
+  .about__orbitRing {
+    width: clamp(150px, 46vw, 220px);
+  }
+
+  .about__station--photo {
+    width: clamp(150px, 46vw, 260px);
+  }
+
+  .about__station--drawn {
+    width: clamp(170px, 56vw, 340px);
+  }
+
+  .universe__dome--photo {
+    width: clamp(200px, 55vw, 300px);
+  }
+
+  .spec__art {
+    top: -60px;
+    right: -16px;
+    width: clamp(90px, 24vw, 130px);
+    height: clamp(84px, 22vw, 120px);
+  }
+
+  .spec[data-card='stargazing'] .spec__art {
+    width: clamp(74px, 20vw, 100px);
+    height: clamp(94px, 25vw, 128px);
+  }
+
+  .spec[data-card='astronomy'] .spec__art {
+    top: -26px;
+    right: -8px;
+    width: clamp(66px, 18vw, 80px);
+    height: clamp(66px, 18vw, 80px);
+  }
+
+  .spec[data-card='rocketry'] .spec__art {
+    width: clamp(74px, 21vw, 96px);
+    height: clamp(102px, 29vw, 132px);
+  }
+
+  .spec[data-card='astrophotography'] .spec__art {
+    width: clamp(56px, 16vw, 68px);
+    height: clamp(88px, 26vw, 106px);
+  }
+
+  .spec[data-card='club'] .spec__art {
+    width: clamp(48px, 14vw, 60px);
+    height: clamp(96px, 28vw, 118px);
+  }
+
+  .spec[data-card='rovers'] .spec__art {
+    top: -30px;
+    width: clamp(66px, 19vw, 92px);
+    height: clamp(62px, 18vw, 84px);
+  }
+
+  .cta__sunrise {
+    height: 140px;
+  }
+
+  .footer__socialLink {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ---- About: smallest phones — the 640px tier above still assumes some
+   breathing room; below 480px the pinned orbit/station graphics and vm
+   min-height need to shrink further so the pin doesn't leave excess
+   empty scroll track on short viewports. ---- */
+@media (max-width: 480px) {
+  .about__saturnWrap {
+    width: clamp(200px, 78vw, 320px);
+    right: -18%;
+    opacity: 0.4;
+  }
+
+  .about__badges {
+    gap: 14px;
+  }
+
+  .about__vm {
+    min-height: 520px;
+  }
+
+  .about__vmCell {
+    max-width: 100%;
+  }
+
+  .about__orbitRing {
+    width: clamp(120px, 50vw, 180px);
+  }
+
+  .about__station--photo {
+    width: clamp(120px, 50vw, 200px);
+  }
+
+  .about__station--drawn {
+    width: clamp(140px, 60vw, 260px);
+    height: 10px;
+  }
+
+  .gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .team__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lightbox__close,
+  .lightbox__nav {
+    width: 40px;
+    height: 40px;
+  }
+
+  .lightbox__nav--prev,
+  .lightbox__nav--next {
+    font-size: 24px;
+  }
+
+  .footer__whatsappMenu {
+    left: 0;
+    transform: none;
+  }
+
+  .contactSection__submit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .programs__grid {
+    gap: 20px;
+  }
 }
 
 /* ---- Moon banner: two responsive tiers on top of the desktop-default
@@ -2005,5 +2163,27 @@
 
   .moonBanner__row {
     gap: clamp(2px, 1.2vw, 10px);
+  }
+}
+
+/* ---- Specialty cards: on touch devices there's no hover state to
+   trigger the description reveal, so show it by default rather than
+   hiding content behind an interaction touch users can't perform. ---- */
+@media (hover: none) and (pointer: coarse) {
+  .spec__descWrap {
+    grid-template-rows: 1fr;
+  }
+
+  .spec__desc {
+    opacity: 1;
+  }
+
+  .spec__head {
+    justify-content: flex-start;
+  }
+
+  .spec__rule {
+    width: 44px;
+    background: var(--accent);
   }
 }

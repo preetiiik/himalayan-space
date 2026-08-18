@@ -271,3 +271,18 @@
     max-width: 100%;
   }
 }
+
+@media (max-width: 480px) {
+  .hero__astronaut {
+    width: clamp(170px, 46vw, 260px);
+    opacity: 0.4;
+  }
+
+  .hero__scroll {
+    bottom: 22px;
+  }
+
+  .hero__scrollLine {
+    height: 40px;
+  }
+}
