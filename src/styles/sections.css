@@ -16,7 +16,7 @@
   grid-template-columns: 1.05fr 1fr;
   gap: clamp(32px, 6vw, 90px);
   align-items: start;
-  padding-block: clamp(50px, 8vw, 110px);
+  padding-block: clamp(40px, 5vw, 70px);
 }
 
 .about__title span {
@@ -85,7 +85,7 @@
 
 .about__story {
   position: relative;
-  padding-block: clamp(60px, 9vw, 130px);
+  padding-block: clamp(40px, 5vw, 70px);
   background: radial-gradient(ellipse 80% 60% at 78% 40%, rgba(30, 44, 66, 0.5), transparent 70%);
   overflow: hidden;
 }
@@ -178,7 +178,7 @@
 
 .about__vmPin {
   position: relative;
-  height: 300vh;
+  height: 160vh;
 }
 
 .about__vm {
@@ -189,7 +189,7 @@
   align-content: center;
   gap: 40px;
   padding-block: clamp(60px, 9vw, 120px);
-  min-height: 900px;
+  min-height: 550px;
 }
 
 .about__vmCell {

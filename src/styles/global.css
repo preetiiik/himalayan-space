@@ -32,7 +32,8 @@
   /* Rhythm */
   --shell: 1280px;
   --gutter: clamp(20px, 5vw, 72px);
-  --section-y: clamp(72px, 10vw, 150px);
+  /* --section-y: clamp(72px, 10vw, 150px); */
+  --section-y: clamp(50px, 6vw, 90px);
 
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

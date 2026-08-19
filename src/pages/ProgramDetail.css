@@ -8,6 +8,7 @@
 .progDetail__back {
   display: inline-flex;
   font-size: 14px;
+  padding-top: 60px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-muted);
@@ -44,7 +45,7 @@
 .progDetail__placeholder {
   color: var(--ink-faint);
   font-style: italic;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.85;
   max-width: 62ch;
   padding: 16px 20px;
@@ -56,93 +57,64 @@
   margin-top: clamp(64px, 9vw, 110px);
 }
 
-/* Editorial/bento-style masonry: a 4-column grid where most tiles are
-   1x1, but a repeating pattern (every 6th, so an 11-image gallery gets
-   2 anchors, a 7-image one gets 1-2) promotes a tile to a large 2x2
-   anchor, plus one tall and one wide tile per cycle for asymmetry.
-   grid-auto-flow: dense lets later small tiles backfill any gaps left
-   by the spanning ones instead of leaving holes. */
+/* True masonry: a 4-column layout where each tile's height is driven
+   entirely by its own image's natural aspect ratio — no forced row
+   height, no cropping, no border/frame. CSS columns (rather than grid)
+   is what makes this possible: items flow down each column and simply
+   stack with a fixed gap between them, so there are never empty holes
+   to backfill and never a track size an image has to be cropped to fit. */
 .progDetail__gallery {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-rows: clamp(120px, 15vw, 190px);
-  grid-auto-flow: dense;
-  gap: clamp(16px, 2.2vw, 28px);
+  columns: 4;
+  column-gap: clamp(16px, 2.2vw, 28px);
   margin-top: clamp(30px, 4vw, 50px);
 }
 
 .progDetail__galleryItem {
-  border: 1px solid var(--line-soft);
-  border-radius: 6px;
+  break-inside: avoid;
+  margin-bottom: clamp(16px, 2.2vw, 28px);
   overflow: hidden;
-  background: var(--bg-panel);
-  transition: transform 0.55s var(--ease-out), border-color 0.5s, box-shadow 0.55s;
-}
-
-.progDetail__galleryItem:nth-child(6n + 1) {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.progDetail__galleryItem:nth-child(6n + 3) {
-  grid-row: span 2;
-}
-
-.progDetail__galleryItem:nth-child(6n + 4) {
-  grid-column: span 2;
+  transition: transform 0.55s var(--ease-out);
 }
 
 .progDetail__galleryItem:hover {
   transform: translateY(-6px);
-  border-color: rgba(169, 216, 244, 0.3);
-  box-shadow: 0 26px 60px -30px rgba(120, 180, 230, 0.5);
 }
 
 .progDetail__galleryItem:hover .figure img {
   transform: scale(1.06);
 }
 
-.progDetail__galleryMedia {
+/* The shared .figure component (sections.css) is built for fixed-box
+   cards: it sets a dark skeleton background, hides overflow, and forces
+   its img to width:100%/height:100%/object-fit:cover so the image fills
+   whatever box the card gives it. That's right for .prog/.event/.lab
+   cards, but wrong here — this gallery wants each tile sized off the
+   image itself. .progDetail__galleryMedia overrides every one of those
+   properties (matched here, not in sections.css, so other .figure users
+   are unaffected). */
+.figure.progDetail__galleryMedia {
   border-radius: 0;
-  /* Fill the tile's actual grid-track size (which varies per span)
-     rather than deriving its own box from the ratio prop — a fixed
-     aspect-ratio would fight the masonry grid's own row/column spans. */
-  aspect-ratio: auto;
-  height: 100%;
+  overflow: visible;
+  background: none;
+  display: block;
 }
 
-/* Cropped to fill each irregular tile — a masonry/bento layout with
-   mixed tile shapes needs every tile filled edge-to-edge to read as
-   organic rather than full of letterboxed gaps; the earlier
-   "show the complete image" request and this "editorial masonry" one
-   are in some tension here, so flagging the choice rather than
-   guessing silently. */
-.progDetail__galleryMedia img {
-  object-fit: cover;
+.figure.progDetail__galleryMedia img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: unset;
 }
 
 @media (max-width: 860px) {
   .progDetail__gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .progDetail__galleryItem:nth-child(6n + 1) {
-    grid-column: span 2;
-    grid-row: span 1;
+    columns: 2;
   }
 }
 
 @media (max-width: 560px) {
   .progDetail__gallery {
-    grid-template-columns: 1fr;
-  }
-
-  .progDetail__galleryItem,
-  .progDetail__galleryItem:nth-child(6n + 1),
-  .progDetail__galleryItem:nth-child(6n + 3),
-  .progDetail__galleryItem:nth-child(6n + 4) {
-    grid-column: span 1;
-    grid-row: span 1;
+    columns: 1;
   }
 }
 
@@ -156,8 +128,6 @@
 
 .progDetail__banner {
   position: relative;
-  border: 1px solid var(--line-soft);
-  border-radius: 6px;
   overflow: hidden;
 }
 
