@@ -147,7 +147,7 @@ const SOCIALS = [
   },
   {
     label: 'YouTube',
-    href: "https://www.youtube.com/channel/UCaCqkmAakjeRxghbrQCvjg",
+    href: "https://www.youtube.com/@himalayanspacecentre",
     icon: (
       <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.6">
         <rect x="2" y="5" width="20" height="14" rx="4" />
