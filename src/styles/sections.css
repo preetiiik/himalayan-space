@@ -1841,7 +1841,7 @@
 .footer__legal {
   border-top: 1px solid var(--line-soft);
   padding-block: 20px;
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.1em;
   color: var(--ink-faint);
   text-align: center;
@@ -2058,6 +2058,9 @@
     width: 40px;
     height: 40px;
   }
+  .footer__legal {
+    font-size: 14px;
+  }
 }
 
 /* ---- About: smallest phones — the 640px tier above still assumes some
@@ -2132,6 +2135,9 @@
     align-items: centre;
     margin-left: 18px;
 }
+.footer__legal {
+    font-size: 14px;
+  }
 }
 
 /* ---- Moon banner: two responsive tiers on top of the desktop-default
