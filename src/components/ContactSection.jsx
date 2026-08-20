@@ -133,7 +133,9 @@ export default function ContactSection() {
             <div className="contactSection__phones">
               {FOOTER.phones.map((number, i) => (
                 <div className="contactSection__phone" key={number}>
-                  <span className="contactSection__phoneNumber">{number}</span>
+                  <a className="contactSection__phoneNumber" href={`tel:${number.replace(/[^+\d]/g, '')}`}>
+                    {number}
+                  </a>
                   <span className="contactSection__phoneLabel">{CONTACT_SECTION.phoneLabels[i]}</span>
                 </div>
               ))}
