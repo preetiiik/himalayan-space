@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { ABOUT, STORY, VISION_MISSION } from '../data/content'
 import { useParallax } from '../hooks/useParallax'
 import { usePinProgress } from '../hooks/useScrollProgress'
+import { useInView } from '../hooks/useInView'
 
 export default function About() {
   const saturn = useParallax(-0.22, { rotate: 6 })
+  const [saturnRevealRef, saturnInView] = useInView({ threshold: 0.25 })
   const vmPin = usePinProgress('--vm-progress')
   const [saturnImgFailed, setSaturnImgFailed] = useState(false)
   const [stationImgFailed, setStationImgFailed] = useState(false)
@@ -54,7 +56,11 @@ export default function About() {
             ))}
           </div>
 
-          <div className="about__saturnWrap" aria-hidden="true">
+          <div
+            className={`about__saturnWrap${saturnInView ? ' is-in' : ''}`}
+            aria-hidden="true"
+            ref={saturnRevealRef}
+          >
             <div className="about__saturn" ref={saturn}>
               {saturnImgFailed ? (
                 <>
