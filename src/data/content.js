@@ -373,7 +373,7 @@ export const FOOTER = {
   contactHeading: 'Contact Us',
   phones: ['+1-347-507-7773', '+880-1819-016-721', '+91-9731757556', '+91-9606351695'],
   emails: ['space@himalayanspacecentre.org', 'ceo@himalayanspacecentre.org'],
-  legal: 'All rights reserved ©2026.',
+  legal: 'All Rights Reserved ©2026.',
   poweredBy: 'Powered By Spitel Pvt. Ltd.',
   poweredByUrl: 'https://spitel.com',
 }

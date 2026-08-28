@@ -154,6 +154,15 @@
   -webkit-mask-image: linear-gradient(115deg, transparent 0%, black 32%);
 }
 
+/* @media (max-width: 768px) {
+  .about__saturnImg {
+    filter: drop-shadow(0 0 40px rgba(200, 165, 110, 0.55));
+    opacity: 1;
+    mask-image: linear-gradient(115deg, transparent 0%, black 15%, black 100%);
+    -webkit-mask-image: linear-gradient(115deg, transparent 0%, black 15%, black 100%);
+  }
+} */
+
 .about__saturnBody {
   position: absolute;
   inset: 18%;
@@ -294,7 +303,13 @@
   object-fit: contain;
   filter: drop-shadow(0 0 24px rgba(160, 190, 220, 0.35));
 }
-
+@media (max-width: 768px) {
+  .about__stationImg {
+    filter: drop-shadow(0 0 20px rgba(160, 190, 220, 0.6))
+            brightness(1.15);
+    opacity: 1;
+  }
+}
 .about__station--drawn {
   width: clamp(280px, 42vw, 560px);
   height: 14px;
@@ -1963,7 +1978,15 @@
   }
 
   .about__orbit {
-    opacity: 0.35;
+    /* Keep the station at full strength on touch layouts. Applying opacity
+       here also faded its image, which made the satellite disappear against
+       the dark page background. */
+    opacity: 0.65;
+  }
+
+  .about__orbitRing {
+    /* Soften only the decorative ring; the satellite remains unaffected. */
+    border-color: rgba(255, 255, 255, 0.08);
   }
 
   .programs__grid,
@@ -2198,27 +2221,42 @@
 
 @media (max-width: 767px) {
   .moon--full {
-    width: clamp(68px, 17vw, 111px);
-    height: clamp(68px, 17vw, 111px);
+    width: clamp(74px, 18.5vw, 121px);
+    height: clamp(74px, 18.5vw, 121px);
   }
 
   .moon--gibbous {
-    width: clamp(57px, 14.14vw, 92px);
-    height: clamp(57px, 14.14vw, 92px);
+    width: clamp(62px, 15.4vw, 101px);
+    height: clamp(62px, 15.4vw, 101px);
     margin-inline: clamp(-13px, -1.9vw, -8px);
   }
 
   .moon--crescent,
   .moon--half {
-    width: clamp(42px, 10.48vw, 68px);
-    height: clamp(42px, 10.48vw, 68px);
+    width: clamp(46px, 11.4vw, 75px);
+    height: clamp(46px, 11.4vw, 75px);
     margin-inline: clamp(-13px, -1.9vw, -8px);
   }
 
   .moonBanner__row {
     gap: clamp(2px, 1.2vw, 10px);
   }
+
+  /* The source PNGs have generous transparent edges. Scale the artwork,
+     not just its layout box, so the visible lunar discs are larger. */
+  .moon--full {
+    overflow: visible;
+  }
+
+  .moon__photo {
+    transform: scale(1.22);
+  }
+
+  .moon__photo--mirrored {
+    transform: scale(-1.22, 1.22);
+  }
 }
+
 
 /* ---- Specialty cards: on touch devices there's no hover state to
    trigger the description reveal, so show it by default rather than
