@@ -2,6 +2,10 @@ import { useState } from 'react'
 import { CONTACT_SECTION, FOOTER } from '../data/content'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+// Letters, spaces, hyphens and apostrophes only — no digits or other special characters
+const NAME_RE = /^[A-Za-z][A-Za-z' -]*$/
+// Matches the placeholder format exactly: +<country code>-XXX-XXX-XXXX (10-digit local number)
+const PHONE_RE = /^\+\d{1,3}-\d{3}-\d{3}-\d{4}$/
 const EMAIL_PRIORITY = ['ceo', 'space']
 
 export default function ContactSection() {
@@ -14,7 +18,10 @@ export default function ContactSection() {
   const validate = () => {
     const next = {}
     if (!values.name.trim()) next.name = 'Name is required.'
+    else if (!NAME_RE.test(values.name.trim())) next.name = 'Name can only contain letters, spaces, and hyphens.'
     if (!values.email.trim() || !EMAIL_RE.test(values.email)) next.email = 'Enter a valid email.'
+    if (!values.phone.trim()) next.phone = 'Phone number is required.'
+    else if (!PHONE_RE.test(values.phone.trim())) next.phone = 'Enter phone as +X-XXX-XXX-XXXX.'
     if (!values.message.trim()) next.message = 'Please describe your inquiry.'
     setErrors(next)
     return Object.keys(next).length === 0
@@ -94,7 +101,9 @@ export default function ContactSection() {
                 placeholder="+X-XXX-XXX-XXXX"
                 value={values.phone}
                 onChange={update('phone')}
+                aria-invalid={Boolean(errors.phone)}
               />
+              {errors.phone && <span className="contactSection__error">{errors.phone}</span>}
             </label>
 
             <label className="contactSection__field">

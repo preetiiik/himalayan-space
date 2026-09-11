@@ -8,6 +8,7 @@ import Contact from './pages/Contact'
 import ProgramDetail from './pages/ProgramDetail'
 import { useScrollReveal } from './hooks/useScrollReveal'
 import './styles/sections.css'
+import ScrollToHash from './components/ScrollToHash'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -22,6 +23,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToHash />
       <ScrollToTop />
       <Starfield />
       <Navbar />

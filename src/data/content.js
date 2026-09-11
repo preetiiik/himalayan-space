@@ -152,8 +152,8 @@ export const PROGRAMS = {
       body:
         'An international space leadership experience designed to develop creativity and leadership.',
       // TODO: replace with the real extended write-up for this program.
-      fullBody:
-        'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the Thailand 2025 itinerary, participating delegations, and program outcomes.',
+      // fullBody:
+      //   'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the Thailand 2025 itinerary, participating delegations, and program outcomes.',
       img: 'program-thailand',
       gallery: [
         'program-thailand',
@@ -176,8 +176,8 @@ export const PROGRAMS = {
       body:
         'A celebration of Indian achievements in space exploration, inspiring students through engaging activities, exhibits, and space science experiences.',
       // TODO: replace with the real extended write-up for this program.
-      fullBody:
-        'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the National Space Day exhibits, guest speakers, and student activities.',
+      // fullBody:
+      //   'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the National Space Day exhibits, guest speakers, and student activities.',
       img: 'program-space-day',
       gallery: [
         'program-space-day',
@@ -200,8 +200,8 @@ export const PROGRAMS = {
       body:
         'Structured astronomy and space science classes that help students build knowledge through engaging lessons and hands-on exploration.',
       // TODO: replace with the real extended write-up for this program.
-      fullBody:
-        'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the Annual Space Classes curriculum and learning outcomes.',
+      // fullBody:
+      //   'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the Annual Space Classes curriculum and learning outcomes.',
       img: 'program-classes',
       gallery: [
         'program-classes',
@@ -236,7 +236,7 @@ export const LABS = {
     // TODO: placeholder — replace with the real date for this feature.
     date: 'Date to be confirmed',
     body:
-      'Our ISRO-certified labs provide hands-on experience with satellite components and a total simulation hardware, bridging the gap between theory and cosmic reality.',
+      'Our ISRO-certified labs provide hands-on experience with satellite components and comprehensive simulation hardware, bridging the gap between theory and cosmic reality.',
     // TODO: replace with the real extended write-up for Space Labs.
     fullBody:
       'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the ISRO-certified lab setup, curriculum, and school rollout numbers.',
@@ -316,7 +316,7 @@ export const TEAM = {
         { name: 'Mr. Veeresh Patil', role: 'Co-Founder And Global Vice President' },
         { name: 'Mr. Dipak Kandel', role: 'Country Director — Nepal' },
         { name: 'Prof. Neeta Rajput', role: 'Vice President, Middle East And Africa' },
-        { name: 'Dr. Aphinita Chaichana', role: 'Global And Government Investment, Asia' },
+        { name: 'Dr. Aphinita Chaichana', role: 'Global and Government Investment Director, Asia' },
         { name: 'Richard Nilsson', role: 'Global Vice President, European Union' },
         { name: 'Md Sazzad Kadir', role: 'Global Director' },
         { name: 'Mst. Hatice Cuha', role: 'Country Director — Turkey' },
@@ -354,7 +354,7 @@ export const CTA = {
 export const CONTACT_SECTION = {
   title: 'Contact Us',
   subtitle:
-    'Fill in the contact form and ask any questions you are interested in. Our mission control is standing by to assist with your cosmic inquiries.',
+    'Fill in the contact form and ask any questions that you are interested in. Our mission control is standing by to assist with your cosmic inquiries.',
   // Reuses FOOTER.phones/FOOTER.emails for the actual numbers/addresses
   // (single source of truth) — these labels are this section's own.
   phoneLabels: ['Primary Hub', 'Regional Link', 'Field Ops A', 'Field Ops B'],

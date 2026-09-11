@@ -48,13 +48,13 @@
   font-size: 16px;
   line-height: 1.85;
   max-width: 62ch;
-  padding: 16px 20px;
+  padding: 0px 0px;
   border: 1px dashed var(--line);
   border-radius: 4px;
 }
 
 .progDetail__galleryWrap {
-  margin-top: clamp(64px, 9vw, 110px);
+  margin-top: clamp(0px, 9vw, 110px);
 }
 
 /* True masonry: a 4-column layout where each tile's height is driven
@@ -66,7 +66,7 @@
 .progDetail__gallery {
   columns: 4;
   column-gap: clamp(16px, 2.2vw, 28px);
-  margin-top: clamp(30px, 4vw, 50px);
+  margin-top: clamp(15px, 4vw, 50px);
 }
 
 .progDetail__galleryItem {

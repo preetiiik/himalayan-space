@@ -11,9 +11,9 @@ export default function Programs() {
   }
 
   return (
-    <section className="section programs">
+    <section className="section programs" id="programs">
       {/* ---- Our Programs ---- */}
-      <div className="shell">
+      <div className="shell" >
         <p className="eyebrow" data-reveal="up">
           {PROGRAMS.eyebrow}
         </p>
@@ -21,7 +21,7 @@ export default function Programs() {
           {PROGRAMS.title}
         </h2>
 
-        <div className="programs__grid">
+        <div className="programs__grid" >
           {PROGRAMS.items.map((item, i) => (
             <article
               className="prog"

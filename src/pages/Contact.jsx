@@ -11,6 +11,11 @@ const MISSION_TYPES = [
 ]
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+// Letters, spaces, hyphens and apostrophes only — no digits or other special characters
+const NAME_RE = /^[A-Za-z][A-Za-z' -]*$/
+// Optional country code, then a 10-digit mobile number that must start 6-9
+// (rejects leading 0/1 and rejects anything shorter/longer than 10 digits)
+const PHONE_RE = /^(\+\d{1,3}[\s-]?)?[6-9]\d{9}$/
 
 export default function Contact() {
   const location = useLocation()
@@ -32,7 +37,10 @@ export default function Contact() {
     const next = {}
     if (!values.missionType) next.missionType = 'Choose a mission type.'
     if (!values.fullName.trim()) next.fullName = 'Identity verification required.'
+    else if (!NAME_RE.test(values.fullName.trim())) next.fullName = 'Name can only contain letters, spaces, and hyphens.'
     if (!values.email.trim() || !EMAIL_RE.test(values.email)) next.email = 'Enter a valid frequency (email).'
+    if (!values.phone.trim()) next.phone = 'Secure line is required.'
+    else if (!PHONE_RE.test(values.phone.trim().replace(/\s+/g, ' '))) next.phone = 'Enter a valid 10-digit number.'
     if (!values.message.trim()) next.message = 'Transmission details cannot be empty.'
     setErrors(next)
     return Object.keys(next).length === 0
@@ -117,7 +125,9 @@ export default function Contact() {
               placeholder="+00 000 000 000"
               value={values.phone}
               onChange={update('phone')}
+              aria-invalid={Boolean(errors.phone)}
             />
+            {errors.phone && <span className="contactForm__error">{errors.phone}</span>}
           </label>
 
           <label className="contactForm__field">
