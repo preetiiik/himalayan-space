@@ -1267,6 +1267,19 @@
   animation: scanSweep 1.5s var(--ease-soft) infinite;
 }
 
+/* Touch devices have no reliable hover, so the grayscale→color reveal
+   would otherwise be stuck in grayscale (or need a tap) forever. Skip
+   the interaction there and show full color from the start. Desktop
+   above is untouched — this only overrides the `filter` the base rule
+   sets, nothing else (layout, sizing, spacing, etc.), and only below
+   the mobile/tablet breakpoint (not a hover/pointer capability query,
+   since those can misreport on some desktop/touchscreen setups). */
+@media (max-width: 768px) {
+  .member__portrait img {
+    filter: grayscale(0.15) contrast(1) brightness(1);
+  }
+}
+
 @keyframes scanSweep {
   0% {
     top: 0;
