@@ -26,3 +26,5 @@ export default function Figure({ name, ratio = '4 / 3', className = '', alt = ''
     </div>
   )
 }
+
+

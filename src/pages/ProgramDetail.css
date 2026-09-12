@@ -48,31 +48,28 @@
   font-size: 16px;
   line-height: 1.85;
   max-width: 62ch;
-  padding: 0px 0px;
+  padding: 16px 20px;
   border: 1px dashed var(--line);
   border-radius: 4px;
 }
 
 .progDetail__galleryWrap {
-  margin-top: clamp(0px, 9vw, 110px);
+  margin-top: clamp(28px, 4vw, 48px);
 }
 
-/* True masonry: a 4-column layout where each tile's height is driven
-   entirely by its own image's natural aspect ratio — no forced row
-   height, no cropping, no border/frame. CSS columns (rather than grid)
-   is what makes this possible: items flow down each column and simply
-   stack with a fixed gap between them, so there are never empty holes
-   to backfill and never a track size an image has to be cropped to fit. */
+/* Uniform grid: every tile is the same fixed-ratio box (set via the
+   Figure `ratio` prop) and its image is cropped to fill it (the shared
+   .figure/.figure img rules in sections.css already do this). Using
+   CSS grid instead of CSS columns means rows stay aligned across every
+   column — no ragged bottoms from images of different heights. */
 .progDetail__gallery {
-  columns: 4;
-  column-gap: clamp(16px, 2.2vw, 28px);
-  margin-top: clamp(15px, 4vw, 50px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2.2vw, 28px);
+  margin-top: clamp(30px, 4vw, 50px);
 }
 
 .progDetail__galleryItem {
-  break-inside: avoid;
-  margin-bottom: clamp(16px, 2.2vw, 28px);
-  overflow: hidden;
   transition: transform 0.55s var(--ease-out);
 }
 
@@ -84,37 +81,15 @@
   transform: scale(1.06);
 }
 
-/* The shared .figure component (sections.css) is built for fixed-box
-   cards: it sets a dark skeleton background, hides overflow, and forces
-   its img to width:100%/height:100%/object-fit:cover so the image fills
-   whatever box the card gives it. That's right for .prog/.event/.lab
-   cards, but wrong here — this gallery wants each tile sized off the
-   image itself. .progDetail__galleryMedia overrides every one of those
-   properties (matched here, not in sections.css, so other .figure users
-   are unaffected). */
-.figure.progDetail__galleryMedia {
-  border-radius: 0;
-  overflow: visible;
-  background: none;
-  display: block;
-}
-
-.figure.progDetail__galleryMedia img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: unset;
-}
-
 @media (max-width: 860px) {
   .progDetail__gallery {
-    columns: 2;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 560px) {
   .progDetail__gallery {
-    columns: 1;
+    grid-template-columns: 1fr;
   }
 }
 

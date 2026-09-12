@@ -1017,6 +1017,7 @@
 
 .prog__date {
   font-size: 14px;
+  font-weight: 700;
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--ink-faint);
@@ -1247,20 +1248,6 @@
 .member:hover .member__portrait img {
   filter: grayscale(0.15) contrast(1) brightness(1);
   transform: scale(1.06);
-}
-
-/* Touch/no-hover devices: there's no hover gesture to reveal colour, so
-   show portraits in full colour by default instead of leaving them
-   grayscale. any-hover/any-pointer (not hover/pointer) checks every
-   available input, so a hybrid device with both a touchscreen and a
-   trackpad/stylus is only treated as touch-only when none of its inputs
-   can hover — matching the pattern already used for .spec__desc above.
-   Desktop's grayscale-default + hover-to-colour transition above is
-   untouched. */
-@media (hover: none) and (pointer: coarse), (any-hover: none), (any-pointer: coarse) {
-  .member__portrait img {
-    filter: grayscale(0) contrast(1) brightness(1);
-  }
 }
 
 /* Scan line that sweeps the portrait on hover */
