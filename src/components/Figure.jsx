@@ -4,14 +4,18 @@ import { useState } from 'react'
  * Image slot with a shimmering skeleton and a graceful fallback.
  * Looks for /public/images/<name>.jpg — until the real exports are dropped in,
  * the gradient placeholder keeps the layout intact.
+ *
+ * `ratio` is optional — pass e.g. "4 / 3" to force a fixed box (cropped via
+ * object-fit in CSS), or omit it to let the image render at its natural
+ * dimensions instead.
  */
-export default function Figure({ name, ratio = '4 / 3', className = '', alt = '' }) {
+export default function Figure({ name, ratio = null, className = '', alt = '' }) {
   const [state, setState] = useState('loading')
 
   return (
     <div
       className={`figure ${className} figure--${state}`}
-      style={{ aspectRatio: ratio }}
+      style={ratio ? { aspectRatio: ratio } : undefined}
     >
       <img
         src={`/images/${name}.jpg`}
@@ -26,5 +30,3 @@ export default function Figure({ name, ratio = '4 / 3', className = '', alt = ''
     </div>
   )
 }
-
-

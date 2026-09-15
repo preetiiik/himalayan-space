@@ -57,20 +57,40 @@
   margin-top: clamp(28px, 4vw, 48px);
 }
 
-/* Uniform grid: every tile is the same fixed-ratio box (set via the
-   Figure `ratio` prop) and its image is cropped to fill it (the shared
-   .figure/.figure img rules in sections.css already do this). Using
-   CSS grid instead of CSS columns means rows stay aligned across every
-   column — no ragged bottoms from images of different heights. */
+/* Masonry-style layout: photos here have real, uneven dimensions (unlike
+   the uniform fixed-ratio boxes used elsewhere on the site), so a regular
+   grid — which needs uniform row heights — isn't the right tool. CSS
+   multi-column lets each photo keep its natural aspect ratio while still
+   flowing into a tidy multi-column layout; break-inside:avoid on each
+   item stops a photo being split across two columns. */
 .progDetail__gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(16px, 2.2vw, 28px);
+  column-count: 3;
+  column-gap: clamp(16px, 2.2vw, 28px);
   margin-top: clamp(30px, 4vw, 50px);
 }
 
 .progDetail__galleryItem {
+  break-inside: avoid;
+  margin-bottom: clamp(16px, 2.2vw, 28px);
   transition: transform 0.55s var(--ease-out);
+}
+
+/* Figure is given no `ratio` here, so it has no forced aspect box — let
+   the image (and its wrapping .figure) size to its own natural
+   dimensions instead of being cropped or letterboxed to fit one. */
+.progDetail__gallery .figure {
+  height: auto;
+}
+
+.progDetail__gallery .figure--loading,
+.progDetail__gallery .figure--missing {
+  min-height: 180px;
+}
+
+.progDetail__gallery .figure img {
+  position: static;
+  width: 100%;
+  height: auto;
 }
 
 .progDetail__galleryItem:hover {
@@ -83,13 +103,13 @@
 
 @media (max-width: 860px) {
   .progDetail__gallery {
-    grid-template-columns: repeat(2, 1fr);
+    column-count: 2;
   }
 }
 
 @media (max-width: 560px) {
   .progDetail__gallery {
-    grid-template-columns: 1fr;
+    column-count: 1;
   }
 }
 

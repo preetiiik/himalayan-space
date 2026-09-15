@@ -67,7 +67,7 @@ export default function ProgramDetail() {
               data-reveal="up"
               style={{ '--reveal-delay': `${i * 100}ms` }}
             >
-              <Figure name={img} ratio="4 / 3" className="progDetail__galleryMedia" />
+              <Figure name={img} className="progDetail__galleryMedia" />
             </div>
           ))}
         </div>

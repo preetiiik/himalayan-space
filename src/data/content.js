@@ -238,8 +238,8 @@ export const LABS = {
     body:
       'Our ISRO-certified labs provide hands-on experience with satellite components and comprehensive simulation hardware, bridging the gap between theory and cosmic reality.',
     // TODO: replace with the real extended write-up for Space Labs.
-    fullBody:
-      'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the ISRO-certified lab setup, curriculum, and school rollout numbers.',
+    // fullBody:
+      // 'Extended program details are being finalized — this placeholder will be replaced with the full write-up covering the ISRO-certified lab setup, curriculum, and school rollout numbers.',
     img: 'lab-inauguration',
     gallery: [
       'lab-inauguration',
@@ -256,7 +256,7 @@ export const LABS = {
     // TODO: placeholder banner — replace with the real "Reaching the
     // Moon" image once available; reusing the lab photo for now so the
     // section isn't empty.
-    extraBlocks: [{ type: 'banner', image: 'lab-inauguration', caption: 'Reaching the Moon' }],
+    // extraBlocks: [{ type: 'banner', image: 'lab-inauguration', caption: 'Reaching the Moon' }],
   },
   items: [
     {
@@ -267,18 +267,18 @@ export const LABS = {
       date: 'Date to be confirmed',
       body: 'Decode the mysteries of the universe through professional-grade telescopes in high-altitude environments.',
       // TODO: replace with the real extended write-up for this session.
-      fullBody:
-        'Extended session details are being finalized — this placeholder will be replaced with the full write-up covering the stargazing locations, telescope setup, and guided observation format.',
+      // fullBody:
+        // 'Extended session details are being finalized — this placeholder will be replaced with the full write-up covering the stargazing locations, telescope setup, and guided observation format.',
       img: 'lab-telescope',
       gallery: [
         'lab-telescope',
+        'lab-telescope-gallery-7',
         'lab-telescope-gallery-1',
         'lab-telescope-gallery-2',
         'lab-telescope-gallery-3',
         'lab-telescope-gallery-4',
         'lab-telescope-gallery-5',
         'lab-telescope-gallery-6',
-        'lab-telescope-gallery-7',
       ],
     },
     {
@@ -289,8 +289,8 @@ export const LABS = {
       date: 'Date to be confirmed',
       body: 'Master the principles of aerodynamics and propulsion by building and launching your own flight-ready models.',
       // TODO: replace with the real extended write-up for this workshop.
-      fullBody:
-        'Extended workshop details are being finalized — this placeholder will be replaced with the full write-up covering the build process, launch day, and safety briefing.',
+      // fullBody:
+        // 'Extended workshop details are being finalized — this placeholder will be replaced with the full write-up covering the build process, launch day, and safety briefing.',
       img: 'lab-rocketry',
       gallery: [
         'lab-rocketry',
@@ -298,8 +298,8 @@ export const LABS = {
         'lab-rocketry-gallery-2',
         'lab-rocketry-gallery-3',
         'lab-rocketry-gallery-4',
-        'lab-rocketry-gallery-5',
-        'lab-rocketry-gallery-6',
+        // 'lab-rocketry-gallery-5',
+        // 'lab-rocketry-gallery-6',
       ],
     },
   ],
