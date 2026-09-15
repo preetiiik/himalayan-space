@@ -5,6 +5,7 @@ export const NAV_LINKS = [
   { id: 'programs', label: 'Programs' },
   { id: 'team', label: 'Our Team' },
   { id: 'gallery', label: 'Gallery' },
+  // { id: 'contact', label: 'CONTACT US' },
 ]
 
 export const HERO = {

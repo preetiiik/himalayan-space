@@ -20,7 +20,7 @@ export default function ProgramDetail() {
         <div className="shell">
           <p className="eyebrow">Program Not Found</p>
           <h1 className="display--sm progDetail__title">We couldn't find that program.</h1>
-          <Link to="/#programs" className="btn btn--ghost btn--sm progDetail__back">
+          <Link to="/" className="btn btn--ghost btn--sm progDetail__back">
             ← Back to Home
           </Link>
         </div>
@@ -33,7 +33,7 @@ export default function ProgramDetail() {
   return (
     <section className="section progDetail">
       <div className="shell">
-        <Link to="/#programs" className="progDetail__back">
+        <Link to="/" className="progDetail__back">
           ← Back to Home
         </Link>
 

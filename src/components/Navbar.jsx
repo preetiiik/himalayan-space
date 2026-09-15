@@ -10,25 +10,56 @@ const SECTION_IDS = NAV_LINKS.map((l) => l.id)
 // Icon components
 const ICONS = {
   explore: (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    >
       <circle cx="12" cy="12" r="5" />
       <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24" />
     </svg>
   ),
+
   team: (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    >
       <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
       <circle cx="9" cy="7" r="4" />
       <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
     </svg>
   ),
+
   programs: (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    >
       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
     </svg>
   ),
+
   gallery: (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    >
       <rect x="3" y="3" width="18" height="18" rx="2" />
       <circle cx="8.5" cy="8.5" r="1.5" />
       <path d="M21 15l-5-5L5 21" />
@@ -39,31 +70,71 @@ const ICONS = {
 export default function Navbar() {
   const y = useScrollY()
   const location = useLocation()
+
+  /*
+   * Contact is intentionally NOT added to NAV_LINKS.
+   * The Contact Us button remains separate.
+   *
+   * useActiveSection should return "contact" when the
+   * Contact section is reached.
+   */
   const active = useActiveSection(SECTION_IDS, location.pathname)
+
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const pendingScroll = useRef(null)
 
   const condensed = y > 90
 
-  // Shared sliding underline: instead of each link owning its own
-  // ::after (which made the underline pop in/out independently on
-  // both ends when the active section changed), we measure the
-  // active link's position and slide one indicator to it.
+  // Navigation links container
   const navLinksRef = useRef(null)
+
+  // References to visible navigation links
   const linkRefs = useRef({})
 
-  const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 })
+  // Sliding underline state
+  const [indicator, setIndicator] = useState({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  })
 
+  /*
+   * Measure the active navigation link.
+   *
+   * IMPORTANT:
+   * When Contact is active, there is no navigation link
+   * for Contact because Contact Us is a separate button.
+   *
+   * Therefore the underline is completely hidden when
+   * active === "contact".
+   */
   const measureIndicator = () => {
     const container = navLinksRef.current
-    const activeEl = linkRefs.current[active]
-    if (!container || !activeEl) {
-      setIndicator((s) => ({ ...s, opacity: 0 }))
+
+    // Contact has no navigation-link indicator.
+    // This removes the Gallery underline when Contact is active.
+    if (active === 'contact') {
+      setIndicator((s) => ({
+        ...s,
+        opacity: 0,
+      }))
       return
     }
+
+    const activeEl = linkRefs.current[active]
+
+    if (!container || !activeEl) {
+      setIndicator((s) => ({
+        ...s,
+        opacity: 0,
+      }))
+      return
+    }
+
     const containerRect = container.getBoundingClientRect()
     const linkRect = activeEl.getBoundingClientRect()
+
     setIndicator({
       left: linkRect.left - containerRect.left,
       width: linkRect.width,
@@ -71,40 +142,69 @@ export default function Navbar() {
     })
   }
 
-  // Recalculate whenever the active section or the bar's condensed
-  // state changes (condensing shifts link spacing/font-size a touch).
+  /*
+   * Recalculate whenever:
+   * - active section changes
+   * - navbar becomes condensed
+   */
   useLayoutEffect(() => {
     measureIndicator()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, condensed])
 
-  // Also recalculate on resize, since clamp()-based gaps mean link
-  // positions shift with viewport width.
+  /*
+   * Recalculate when the browser is resized.
+   */
   useEffect(() => {
     window.addEventListener('resize', measureIndicator)
-    return () => window.removeEventListener('resize', measureIndicator)
+
+    return () => {
+      window.removeEventListener('resize', measureIndicator)
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active])
 
-  // These links point to homepage section ids (#explore, #contact, etc.),
-  // which only exist while Home is mounted. From any other route,
-  // document.getElementById returns null and scrollIntoView silently
-  // no-ops. Off the homepage, navigate there first and defer the scroll
-  // until the target section has actually mounted.
+  /*
+   * Links point to homepage section IDs.
+   *
+   * If the user is on another route, navigate to "/"
+   * first and then scroll to the requested section.
+   */
   useEffect(() => {
-    if (location.pathname !== '/' || !pendingScroll.current) return
+    if (location.pathname !== '/' || !pendingScroll.current) {
+      return
+    }
+
     const id = pendingScroll.current
     pendingScroll.current = null
+
     requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      document
+        .getElementById(id)
+        ?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
     })
   }, [location.pathname])
 
+  /*
+   * Handle navigation clicks.
+   */
   const go = (e, id) => {
     e.preventDefault()
+
     setOpen(false)
+
     if (location.pathname === '/') {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      document
+        .getElementById(id)
+        ?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
     } else {
       pendingScroll.current = id
       navigate('/')
@@ -112,13 +212,29 @@ export default function Navbar() {
   }
 
   return (
-    <header className={`nav ${condensed ? 'is-condensed' : ''} ${open ? 'is-open' : ''}`}>
+    <header
+      className={`nav ${
+        condensed ? 'is-condensed' : ''
+      } ${open ? 'is-open' : ''}`}
+    >
       <div className="nav__inner shell">
-        <a href="#top" className="nav__logo" onClick={(e) => go(e, 'top')} aria-label="Himalayan Space Centre — home">
+
+        {/* LOGO */}
+        <a
+          href="#top"
+          className="nav__logo"
+          onClick={(e) => go(e, 'top')}
+          aria-label="Himalayan Space Centre — home"
+        >
           <Logo />
         </a>
 
-        <nav className="nav__links" aria-label="Primary" ref={navLinksRef}>
+        {/* NAVIGATION */}
+        <nav
+          className="nav__links"
+          aria-label="Primary"
+          ref={navLinksRef}
+        >
           {NAV_LINKS.map((link) => (
             <a
               key={link.id}
@@ -127,13 +243,23 @@ export default function Navbar() {
               }}
               href={`#${link.id}`}
               onClick={(e) => go(e, link.id)}
-              className={`nav__link ${active === link.id ? 'is-active' : ''}`}
+              className={`nav__link ${
+                active === link.id && active !== 'contact'
+                  ? 'is-active'
+                  : ''
+              }`}
             >
-              <span className="nav__link-icon">{ICONS[link.id]}</span>
-              <span className="nav__link-text">{link.label}</span>
+              <span className="nav__link-icon">
+                {ICONS[link.id]}
+              </span>
+
+              <span className="nav__link-text">
+                {link.label}
+              </span>
             </a>
           ))}
 
+          {/* SLIDING UNDERLINE */}
           <span
             className="nav__indicator"
             aria-hidden="true"
@@ -144,6 +270,7 @@ export default function Navbar() {
             }}
           />
 
+          {/* MOBILE CONTACT BUTTON */}
           <a
             href="#contact"
             onClick={(e) => go(e, 'contact')}
@@ -153,6 +280,7 @@ export default function Navbar() {
           </a>
         </nav>
 
+        {/* DESKTOP CONTACT BUTTON */}
         <a
           href="#contact"
           onClick={(e) => go(e, 'contact')}
@@ -161,6 +289,7 @@ export default function Navbar() {
           Contact Us
         </a>
 
+        {/* MOBILE MENU BUTTON */}
         <button
           className="nav__burger"
           onClick={() => setOpen((o) => !o)}
@@ -173,14 +302,30 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Progress bar tracking how far down the page you are */}
-      <span className="nav__progress" style={{ transform: `scaleX(${scrollFraction(y)})` }} />
+      {/* PROGRESS BAR */}
+      <span
+        className="nav__progress"
+        style={{
+          transform: `scaleX(${scrollFraction(y)})`,
+        }}
+      />
     </header>
   )
 }
 
+/*
+ * Calculate page scroll progress.
+ */
 function scrollFraction(y) {
-  if (typeof document === 'undefined') return 0
-  const max = document.documentElement.scrollHeight - window.innerHeight
-  return max > 0 ? Math.min(y / max, 1) : 0
+  if (typeof document === 'undefined') {
+    return 0
+  }
+
+  const max =
+    document.documentElement.scrollHeight -
+    window.innerHeight
+
+  return max > 0
+    ? Math.min(y / max, 1)
+    : 0
 }

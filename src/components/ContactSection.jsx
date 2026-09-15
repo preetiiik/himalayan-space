@@ -22,12 +22,19 @@ const sanitizePhoneDigits = (raw) =>
 
 const validatePhoneDigits = (digits) => {
   if (!digits) return 'Phone number is required.'
+
+  if (!/^[6-9]/.test(digits)) {
+    return 'Phone number must start with 6, 7, 8, or 9.'
+  }
+
   if (digits.length < 10) {
     return 'Number is too short — enter all 10 digits.'
   }
+
   if (digits.length > 10) {
     return 'Number is too long — enter only 10 digits.'
   }
+
   return ''
 }
 
@@ -68,20 +75,25 @@ export default function ContactSection() {
 
   // Handle phone input
   const handlePhoneChange = (e) => {
-    const digits = sanitizePhoneDigits(e.target.value)
+  let digits = sanitizePhoneDigits(e.target.value)
 
-    setValues((v) => ({
-      ...v,
-      phone: digits,
-    }))
-
-    if (errors.phone) {
-      setErrors((err) => ({
-        ...err,
-        phone: undefined,
-      }))
-    }
+  // If the first digit is not 6, 7, 8, or 9, reject it
+  if (digits.length > 0 && !/^[6-9]/.test(digits)) {
+    digits = ''
   }
+
+  setValues((v) => ({
+    ...v,
+    phone: digits,
+  }))
+
+  if (errors.phone) {
+    setErrors((err) => ({
+      ...err,
+      phone: undefined,
+    }))
+  }
+}
 
   // Validate phone on blur
   const handlePhoneBlur = () => {
