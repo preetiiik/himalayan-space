@@ -1614,6 +1614,59 @@
   border-color: var(--accent);
 }
 
+.contactSection__phoneRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  position: relative;
+}
+
+/* Strip the browser's default select box so the closed dropdown matches
+   the plain underlined look of .contactSection__input, then add back a
+   small custom arrow since appearance:none removes the native one. */
+.contactSection__select--code {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  flex: 0 0 auto;
+  width: auto;
+  padding-right: 20px;
+  cursor: pointer;
+  background-image: none;
+}
+
+.contactSection__phoneRow::after {
+  content: '';
+  position: absolute;
+  left: var(--phone-code-width, 92px);
+  bottom: 16px;
+  width: 6px;
+  height: 6px;
+  border-right: 1px solid var(--ink-muted);
+  border-bottom: 1px solid var(--ink-muted);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.contactSection__input--phone {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The dropdown list itself is rendered by the OS, not this stylesheet,
+   so the closed-select rules above don't reach it — force readable
+   colors on the option list explicitly. */
+.contactSection__select--code option {
+  color: #000;
+  background: #fff;
+}
+
+.contactSection__select--code option:checked,
+.contactSection__select--code option:hover {
+  background: #1a73e8;
+  color: #fff;
+}
+
 .contactSection__textarea {
   resize: vertical;
   min-height: 56px;
@@ -2268,6 +2321,369 @@
 
   .moon__photo--mirrored {
     transform: scale(-1.22, 1.22);
+  }
+}
+
+/* Success Popup */
+
+.contactSuccessOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+}
+
+.contactSuccessPopup {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 40px 32px 32px;
+  text-align: center;
+  background: #080b10;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: contactSuccessPopupIn 0.25s ease-out;
+}
+
+.contactSuccessClose {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.contactSuccessClose:hover {
+  opacity: 1;
+}
+
+.contactSuccessIcon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.contactSuccessPopup h3 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+}
+
+.contactSuccessPopup p {
+  margin: 0 auto 26px;
+  max-width: 340px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.contactSuccessButton {
+  min-width: 100px;
+  padding: 11px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.contactSuccessButton:hover {
+  background: #fff;
+  color: #080b10;
+}
+
+@keyframes contactSuccessPopupIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .contactSuccessPopup {
+    padding: 36px 22px 26px;
+  }
+
+  .contactSuccessPopup h3 {
+    font-size: 19px;
+  }
+
+  .contactSuccessPopup p {
+    font-size: 13px;
+  }
+}
+
+/* =========================================
+   CONTACT SUCCESS POPUP
+========================================= */
+
+.contactSuccessOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.78);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  animation: contactSuccessOverlayIn 0.25s ease-out;
+}
+
+.contactSuccessPopup {
+  position: relative;
+
+  width: min(420px, 100%);
+
+  padding: 42px 32px 32px;
+
+  text-align: center;
+
+  background: #080b10;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.65);
+
+  animation: contactSuccessPopupIn 0.3s ease-out;
+}
+
+/* Close button */
+
+.contactSuccessClose {
+  position: absolute;
+
+  top: 12px;
+  right: 16px;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 28px;
+  font-weight: 300;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.contactSuccessClose:hover {
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+/* Success icon */
+
+.contactSuccessIcon {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid rgba(255, 255, 255, 0.75);
+
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  font-size: 32px;
+  font-weight: 500;
+
+  animation: contactSuccessCheck 0.35s ease-out;
+}
+
+/* Heading */
+
+.contactSuccessPopup h3 {
+  margin: 0 0 14px;
+
+  color: #ffffff;
+
+  font-size: 22px;
+  font-weight: 500;
+
+  letter-spacing: 0.04em;
+}
+
+/* Description */
+
+.contactSuccessPopup p {
+  max-width: 340px;
+
+  margin: 0 auto 28px;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+/* OK button */
+
+.contactSuccessButton {
+  min-width: 110px;
+
+  padding: 11px 28px;
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.contactSuccessButton:hover {
+  background: #ffffff;
+  color: #080b10;
+
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes contactSuccessOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contactSuccessPopupIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes contactSuccessCheck {
+  from {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .contactSuccessOverlay {
+    padding: 16px;
+  }
+
+  .contactSuccessPopup {
+    width: 100%;
+
+    padding: 38px 22px 26px;
+
+    border-radius: 14px;
+  }
+
+  .contactSuccessIcon {
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 17px;
+
+    font-size: 28px;
+  }
+
+  .contactSuccessPopup h3 {
+    font-size: 19px;
+  }
+
+  .contactSuccessPopup p {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .contactSuccessButton {
+    padding: 10px 26px;
   }
 }
 

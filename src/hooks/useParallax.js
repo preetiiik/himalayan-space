@@ -78,28 +78,56 @@ export function useScrollY() {
   return y
 }
 
-/** Reports which section id is currently under the viewport midpoint. */
-export function useActiveSection(ids) {
+/**
+ * Reports which section id is currently under the viewport midpoint.
+ *
+ * `resetKey` (e.g. the router pathname) forces the observer to re-attach.
+ * This matters because `ids` is usually a module-level constant whose
+ * reference never changes, so a plain `[ids]` dependency only runs this
+ * effect once on mount. Navigating away and back to the page that hosts
+ * these sections remounts the DOM nodes, but without a changing dependency
+ * the old observer — still watching now-detached elements — never gets
+ * torn down and replaced, so `active` freezes until a full refresh.
+ */
+export function useActiveSection(ids, resetKey) {
   const [active, setActive] = useState(ids[0])
 
   useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (visible) setActive(visible.target.id)
-      },
-      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] }
-    )
+    let io
+    let cancelled = false
+    let frame = 0
 
-    ids.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) io.observe(el)
-    })
+    const attach = () => {
+      if (cancelled) return
+      const elements = ids.map((id) => document.getElementById(id)).filter(Boolean)
 
-    return () => io.disconnect()
-  }, [ids])
+      if (elements.length === 0) {
+        // Sections aren't in the DOM yet (e.g. just navigated back to the
+        // page that renders them) — try again next frame instead of giving up.
+        frame = requestAnimationFrame(attach)
+        return
+      }
+
+      io = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+          if (visible) setActive(visible.target.id)
+        },
+        { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] }
+      )
+      elements.forEach((el) => io.observe(el))
+    }
+
+    attach()
+
+    return () => {
+      cancelled = true
+      if (frame) cancelAnimationFrame(frame)
+      io?.disconnect()
+    }
+  }, [ids, resetKey])
 
   return active
 }

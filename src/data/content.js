@@ -2,8 +2,8 @@
 
 export const NAV_LINKS = [
   { id: 'explore', label: 'Explore' },
-  { id: 'team', label: 'Our Team' },
   { id: 'programs', label: 'Programs' },
+  { id: 'team', label: 'Our Team' },
   { id: 'gallery', label: 'Gallery' },
 ]
 

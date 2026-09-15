@@ -62,6 +62,7 @@
 /* --- Links --- */
 
 .nav__links {
+  position: relative;
   display: flex;
   align-items: center;
   gap: clamp(20px, 3vw, 44px);
@@ -119,10 +120,24 @@
   transform: scale(1.15) rotate(-10deg);
 }
 
-.nav__link:hover::after,
-.nav__link.is-active::after {
+.nav__link:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+/* --- Shared sliding underline for the active section --- */
+/* One element that glides between links, instead of each link's
+   own ::after fading in/out independently on scroll. */
+.nav__indicator {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--accent);
+  transition: transform 0.45s var(--ease-out), width 0.45s var(--ease-out),
+    opacity 0.3s var(--ease-out);
+  pointer-events: none;
+  will-change: transform, width;
 }
 
 .nav__cta {
@@ -200,6 +215,10 @@
     opacity: 1;
     transform: none;
     transition-delay: 0.44s;
+  }
+
+  .nav__indicator {
+    display: none;
   }
 
   .nav__links {

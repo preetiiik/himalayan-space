@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { NAV_LINKS } from '../data/content'
 import { useScrollY, useActiveSection } from '../hooks/useParallax'
@@ -38,13 +38,53 @@ const ICONS = {
 
 export default function Navbar() {
   const y = useScrollY()
-  const active = useActiveSection(SECTION_IDS)
-  const [open, setOpen] = useState(false)
   const location = useLocation()
+  const active = useActiveSection(SECTION_IDS, location.pathname)
+  const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const pendingScroll = useRef(null)
 
   const condensed = y > 90
+
+  // Shared sliding underline: instead of each link owning its own
+  // ::after (which made the underline pop in/out independently on
+  // both ends when the active section changed), we measure the
+  // active link's position and slide one indicator to it.
+  const navLinksRef = useRef(null)
+  const linkRefs = useRef({})
+
+  const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 })
+
+  const measureIndicator = () => {
+    const container = navLinksRef.current
+    const activeEl = linkRefs.current[active]
+    if (!container || !activeEl) {
+      setIndicator((s) => ({ ...s, opacity: 0 }))
+      return
+    }
+    const containerRect = container.getBoundingClientRect()
+    const linkRect = activeEl.getBoundingClientRect()
+    setIndicator({
+      left: linkRect.left - containerRect.left,
+      width: linkRect.width,
+      opacity: 1,
+    })
+  }
+
+  // Recalculate whenever the active section or the bar's condensed
+  // state changes (condensing shifts link spacing/font-size a touch).
+  useLayoutEffect(() => {
+    measureIndicator()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, condensed])
+
+  // Also recalculate on resize, since clamp()-based gaps mean link
+  // positions shift with viewport width.
+  useEffect(() => {
+    window.addEventListener('resize', measureIndicator)
+    return () => window.removeEventListener('resize', measureIndicator)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active])
 
   // These links point to homepage section ids (#explore, #contact, etc.),
   // which only exist while Home is mounted. From any other route,
@@ -78,10 +118,13 @@ export default function Navbar() {
           <Logo />
         </a>
 
-        <nav className="nav__links" aria-label="Primary">
+        <nav className="nav__links" aria-label="Primary" ref={navLinksRef}>
           {NAV_LINKS.map((link) => (
             <a
               key={link.id}
+              ref={(el) => {
+                linkRefs.current[link.id] = el
+              }}
               href={`#${link.id}`}
               onClick={(e) => go(e, link.id)}
               className={`nav__link ${active === link.id ? 'is-active' : ''}`}
@@ -90,6 +133,16 @@ export default function Navbar() {
               <span className="nav__link-text">{link.label}</span>
             </a>
           ))}
+
+          <span
+            className="nav__indicator"
+            aria-hidden="true"
+            style={{
+              transform: `translateX(${indicator.left}px)`,
+              width: `${indicator.width}px`,
+              opacity: indicator.opacity,
+            }}
+          />
 
           <a
             href="#contact"
