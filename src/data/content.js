@@ -347,7 +347,7 @@ export const GALLERY = {
 
 export const CTA = {
   eyebrow: 'Look Up',
-  title: ['The Universe Is', 'Waiting. Where Will', 'You Begin?'],
+  title: ['The Universe Is', 'Waiting. When Will', 'You Begin?'],
   primary: 'Start Exploring',
   secondary: 'Contact Us',
 }
