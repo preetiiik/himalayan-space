@@ -38,8 +38,7 @@ const validatePhoneValue = (digits) => {
 // own port (CORS is locked to the Vite dev origin, not proxied), so this
 // needs the full backend URL. Override with VITE_API_URL in a .env file
 // for staging/production instead of editing this directly.
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-const CONTACT_ENDPOINT = `${API_BASE}/api/contact`
+const CONTACT_ENDPOINT = '/api/contact'
 
 export default function Contact() {
   const location = useLocation()
