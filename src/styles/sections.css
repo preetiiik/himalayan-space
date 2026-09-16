@@ -2125,7 +2125,7 @@
 
   .spec__art {
     top: -60px;
-    right: -16px;
+    right: 6px;
     width: clamp(90px, 24vw, 130px);
     height: clamp(84px, 22vw, 120px);
   }
@@ -2137,7 +2137,7 @@
 
   .spec[data-card='astronomy'] .spec__art {
     top: -26px;
-    right: -8px;
+    right: 6px;
     width: clamp(66px, 18vw, 80px);
     height: clamp(66px, 18vw, 80px);
   }
@@ -2173,6 +2173,60 @@
   }
   .footer__legal {
     font-size: 14px;
+  }
+}
+
+/* ---- Specialty cards: smallest phones — the 640px tier above still
+   assumes a bit more room than a sub-380px screen actually has. Below
+   that width the artwork boxes (still sized off the 640px tier's clamps)
+   don't shrink enough relative to the card, so they poke past the card's
+   right/top edges and get clipped by the page's overflow-x. This tier
+   shrinks every card's artwork further and keeps `right`/`top` modest so
+   nothing extends past the card. ---- */
+@media (max-width: 380px) {
+  .spec {
+    padding-right: 88px;
+  }
+
+  .spec__art {
+    top: -40px;
+    right: 4px;
+    width: clamp(70px, 22vw, 96px);
+    height: clamp(64px, 20vw, 88px);
+  }
+
+  .spec[data-card='stargazing'] .spec__art {
+    width: clamp(58px, 18vw, 78px);
+    height: clamp(74px, 23vw, 100px);
+  }
+
+  .spec[data-card='astronomy'] .spec__art {
+    top: -18px;
+    right: 4px;
+    width: clamp(52px, 16vw, 64px);
+    height: clamp(52px, 16vw, 64px);
+  }
+
+  .spec[data-card='rocketry'] .spec__art {
+    width: clamp(58px, 19vw, 76px);
+    height: clamp(80px, 26vw, 104px);
+  }
+
+  .spec[data-card='astrophotography'] .spec__art {
+    width: clamp(44px, 14vw, 54px);
+    height: clamp(70px, 23vw, 84px);
+  }
+
+  .spec[data-card='club'] .spec__art {
+    width: clamp(38px, 12vw, 48px);
+    height: clamp(76px, 24vw, 94px);
+  }
+
+  .spec[data-card='rovers'] .spec__art {
+    top: -20px;
+    right: 4px;
+    width: clamp(52px, 16vw, 72px);
+    height: clamp(48px, 15vw, 66px);
   }
 }
 
