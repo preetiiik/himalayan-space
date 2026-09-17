@@ -6,6 +6,9 @@ const MISSION_TYPES = [
   'Young Astronaut Program',
   'Astro Summer Camp',
   'Astronomy Sessions',
+  'Mission Moon Workshop',
+  'Astronomy Session',
+  'Solar System Workshop',
   'Space Lab Partnership',
   'General Inquiry',
 ]

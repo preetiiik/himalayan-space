@@ -221,9 +221,13 @@ export const EVENTS = {
   eyebrow: 'Celestial Calendar',
   title: 'Events',
   items: [
+    { title: 'Mission Moon Workshop', date: '3 October 2026', img: 'mission-moon-workshop' },
+    { title: 'Astronomy Session', date: '11 October 2026', img: 'astronomy-session' },
+    { title: 'Solar System Workshop', date: '6 October 2026', img: 'solar-sys-workshop' },
     { title: 'Young Astronaut Program', date: 'March 2026', img: 'event-young' },
     { title: 'Astro Summer Camp', date: 'April 2026', img: 'event-camp' },
     { title: 'Astronomy Sessions', date: 'January 2026', img: 'event-astronomy' },
+    
   ],
 }
 
